@@ -139,4 +139,5 @@ const server = app.listen(port, () =>
 );
 server.timeout = 50000;
 
-app.use(errorMiddleware);
+
+app.use(errorMiddleware)
