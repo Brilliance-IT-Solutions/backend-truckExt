@@ -32,8 +32,6 @@
     "otp-generator": "^4.0.1",
     "socket.io": "^4.7.1",
     "stripe": "^12.12.0"
-  },
-  "engines": {
-    "node": ">=14 <18.18.0"
   }
+ 
 }
