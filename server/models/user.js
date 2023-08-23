@@ -34,6 +34,16 @@ const userSchema = new Schema({
             },
             message: "password must contain atleast one uppercase letter, one lower case letter, one digit, one special character and of minimum length 8"
         },
+    },
+    status:{
+        type:Number
+    },
+    otp:{
+        type:String
+    },
+    otpverified:{
+        type:Boolean ,
+        default: false
     }
 
 }, { timestamps: true })

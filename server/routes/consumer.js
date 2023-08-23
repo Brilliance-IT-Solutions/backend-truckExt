@@ -6,7 +6,7 @@ const ConsumerController = require("../controllers/consumercontrollers")
 // const authenticate = require("../middlewares/authenticate")
 
 router.get('/', ConsumerController.index)
-// router.post('/show', ConsumerController.show)
+router.post('/show', ConsumerController.show)
 router.post('/store', ConsumerController.store)
 // router.post('/store', upload.single('avatar'), EmployeeController.store)
 

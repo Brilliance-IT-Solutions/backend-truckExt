@@ -10,7 +10,11 @@ const consumerSchema = new Schema({
     },
     units: {
         type: String
+    },
+    customer:{
+        type:String
     }
+   
 
 }, { timestamps: true })
 
