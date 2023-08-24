@@ -195,7 +195,7 @@ const  checkReminder =  () =>{
     })
 }
 
-const task = cron.schedule('15 16 * * *', () => {
+const task = cron.schedule('15 18 * * *', () => {
     console.log('running a task every minute');
     checkReminder()
   },{
