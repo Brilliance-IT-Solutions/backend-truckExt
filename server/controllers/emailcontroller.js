@@ -15,6 +15,7 @@ const dispatch_email = async (email,subject,text,data)=>{
     
      // send mail with defined transport object
     var mailOptions={
+        from :'sonam.brillianceit@gmail.com',
         to: email,
        subject: subject,
        html:`${text} <br> "<h1 style='font-weight:bold;'>" + ${data} +"</h1>"`
@@ -31,3 +32,5 @@ const dispatch_email = async (email,subject,text,data)=>{
     module.exports = {
        dispatch_email
     }
+
+    
