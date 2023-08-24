@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer')
 const otpGenerator = require('otp-generator')
 // "Otp for registration is: ",
 // "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-const dispatch_email = async (email,subject,text,data)=>{
+async function dispatch_email(email,subject,text,data){
     console.log(email, subject, text, data)
     const transporter = nodemailer.createTransport({
         service:'gmail',
@@ -29,8 +29,7 @@ const dispatch_email = async (email,subject,text,data)=>{
         });
     }
 
-    module.exports = {
-       dispatch_email
-    }
+    module.exports =  dispatch_email
+
 
     
