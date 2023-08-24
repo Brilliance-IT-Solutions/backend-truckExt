@@ -1,8 +1,7 @@
 
 const nodemailer = require('nodemailer')
 const otpGenerator = require('otp-generator')
-// "Otp for registration is: ",
-// "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
+
 async function dispatch_email(email,subject,text,data){
     console.log(email, subject, text, data)
     const transporter = nodemailer.createTransport({
@@ -18,7 +17,7 @@ async function dispatch_email(email,subject,text,data){
         from :'sonam.brillianceit@gmail.com',
         to: email,
        subject: subject,
-       html:`${text} <br> "<h1 style='font-weight:bold;'>" + ${data} +"</h1>"`
+       html:`${text} <br> "<h1 style='font-weight:bold;'>${data}</h1>"`
      };
      
      transporter.sendMail(mailOptions, (error, info) => {

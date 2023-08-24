@@ -8,6 +8,8 @@ const TransactionHistory = require("../models/transactionHistory");
 
 const nodemailer = require('nodemailer')
 var cron = require('node-cron');
+const dispatch_email = require('./emailcontroller')
+
 
 const createPayment = async (req, res) => {
     const { tokenId, email } = req.body.data
@@ -96,11 +98,15 @@ const createPayment = async (req, res) => {
             data: subscription,
             message: "subscription created successfully",
         })
-        dispatch_emails(email)
+        // dispatch_emails(email)
+        dispatch_email(email, 'Payment Succeed!', '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>', '')
 
     }
     catch(error) {
-        dispatch_email(email, error.raw.message)
+        // dispatch_email(email, error.raw.message)
+        dispatch_email(email, 'Payment failed!', '<h3>Payment Failed!' + email + ` </h3><h3>${error.raw.message}<p>Please try again after some time </p></h3>`, '')
+
+
         let errorMessage = "Payment failed. Please try again later.";
 
         // Handle specific error cases
@@ -183,7 +189,9 @@ const  checkReminder =  () =>{
             else{
                 Customer.find({id:ele.customer}).then((res)=>{
                     res.forEach((ele)=>{
-                        dispatch_email1(ele.email,formattedDate)
+                        // dispatch_email1(ele.email,formattedDate)
+                 dispatch_email(email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email + ` </h3><h3><p>Your subscription is expiring on </p></h3>`, formattedDate)
+
                     })
 
                 })
@@ -194,74 +202,74 @@ const  checkReminder =  () =>{
 
 
 
-const dispatch_email1 = (email, message)=>{
-    const transporter = nodemailer.createTransport({
-        service:'gmail',
-        auth: {
-          user: 'sonam.brillianceit@gmail.com',
-          pass: 'vxerwpaiekxqrgvm'
-        }
-    });
+// const dispatch_email1 = (email, message)=>{
+//     const transporter = nodemailer.createTransport({
+//         service:'gmail',
+//         auth: {
+//           user: 'sonam.brillianceit@gmail.com',
+//           pass: 'vxerwpaiekxqrgvm'
+//         }
+//     });
 
-    const mailOptions = {
-        from :'sonam.brillianceit@gmail.com',
-        to:email,
-        subject: 'Reminder Email!',
-        html : '<h3>Reminder Email!' + email + ` </h3><h3><p>Your subscription is expiring on ${message} </p></h3>`
-    };
+//     const mailOptions = {
+//         from :'sonam.brillianceit@gmail.com',
+//         to:email,
+//         subject: 'Reminder Email!',
+//         html : '<h3>Reminder Email!' + email + ` </h3><h3><p>Your subscription is expiring on ${message} </p></h3>`
+//     };
 
-    transporter.sendMail(mailOptions,function(error,info){
-        if(error)throw error;
-        return res.send({error:false, data: info, message: 'OK'});
-    })
-}
-
-
-const dispatch_emails = (email)=>{
-    const transporter = nodemailer.createTransport({
-        service:'gmail',
-        auth: {
-          user: 'sonam.brillianceit@gmail.com',
-          pass: 'vxerwpaiekxqrgvm'
-        }
-    });
-
-    const mailOptions = {
-        from :'sonam.brillianceit@gmail.com',
-        to:email,
-        subject: 'Payment Succeed!',
-        html : '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>'
-    };
+//     transporter.sendMail(mailOptions,function(error,info){
+//         if(error)throw error;
+//         return res.send({error:false, data: info, message: 'OK'});
+//     })
+// }
 
 
-    transporter.sendMail(mailOptions,function(error,info){
-        if(error)throw error;
-        return res.send({error:false, data: info, message: 'OK'});
-    })
-}
+// const dispatch_emails = (email)=>{
+//     const transporter = nodemailer.createTransport({
+//         service:'gmail',
+//         auth: {
+//           user: 'sonam.brillianceit@gmail.com',
+//           pass: 'vxerwpaiekxqrgvm'
+//         }
+//     });
+
+//     const mailOptions = {
+//         from :'sonam.brillianceit@gmail.com',
+//         to:email,
+//         subject: 'Payment Succeed!',
+//         html : '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>'
+//     };
 
 
-const dispatch_email = (email, message)=>{
-    const transporter = nodemailer.createTransport({
-        service:'gmail',
-        auth: {
-          user: 'sonam.brillianceit@gmail.com',
-          pass: 'vxerwpaiekxqrgvm'
-        }
-    });
+//     transporter.sendMail(mailOptions,function(error,info){
+//         if(error)throw error;
+//         return res.send({error:false, data: info, message: 'OK'});
+//     })
+// }
 
-    const mailOptions = {
-        from :'sonam.brillianceit@gmail.com',
-        to:email,
-        subject: 'Payment failed!',
-        html : '<h3>Payment Failed!' + email + ` </h3><h3>${message}<p>Please try again after some time </p></h3>`
-    };
 
-    transporter.sendMail(mailOptions,function(error,info){
-        if(error)throw error;
-        return res.send({error:false, data: info, message: 'OK'});
-    })
-}
+// const dispatch_email = (email, message)=>{
+//     const transporter = nodemailer.createTransport({
+//         service:'gmail',
+//         auth: {
+//           user: 'sonam.brillianceit@gmail.com',
+//           pass: 'vxerwpaiekxqrgvm'
+//         }
+//     });
+
+//     const mailOptions = {
+//         from :'sonam.brillianceit@gmail.com',
+//         to:email,
+//         subject: 'Payment failed!',
+//         html : '<h3>Payment Failed!' + email + ` </h3><h3>${message}<p>Please try again after some time </p></h3>`
+//     };
+
+//     transporter.sendMail(mailOptions,function(error,info){
+//         if(error)throw error;
+//         return res.send({error:false, data: info, message: 'OK'});
+//     })
+// }
 
 const task = cron.schedule('15 16 * * *', () => {
     console.log('running a task every minute');

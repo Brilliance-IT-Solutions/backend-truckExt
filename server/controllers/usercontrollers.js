@@ -154,11 +154,13 @@ const verifyOtp = async (req,res)=>{
         }
       };
 
-        User.updateOne(filter,update).then(()=>{
+        User.updateOne(filter,update).then(async ()=>{
             res.json({
                 success: "Your email is successfully verified"
             })
-            dispatch_emails(email);
+            // dispatch_emails(email)
+        await dispatch_email(email,'Account Registration Successful!','<h3>Attention"!"</h3><br><h3>Your Account has been successfully registered.</h3>', '')
+
         })
     }
     else{
@@ -170,53 +172,53 @@ const verifyOtp = async (req,res)=>{
 
 
 
-const dispatch_email_otp = (email,otp)=>{
-    const transporter = nodemailer.createTransport({
-        service:'gmail',
-        auth: {
-          user: 'sonam.brillianceit@gmail.com',
-          pass: 'vxerwpaiekxqrgvm'
-        }
-    });
+// const dispatch_email_otp = (email,otp)=>{
+//     const transporter = nodemailer.createTransport({
+//         service:'gmail',
+//         auth: {
+//           user: 'sonam.brillianceit@gmail.com',
+//           pass: 'vxerwpaiekxqrgvm'
+//         }
+//     });
     
-     // send mail with defined transport object
-    var mailOptions={
-        to: email,
-       subject: "Otp for registration is: ",
-       html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-     };
+//      // send mail with defined transport object
+//     var mailOptions={
+//         to: email,
+//        subject: "Otp for registration is: ",
+//        html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
+//      };
      
-     transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error)
-            }
-            res.send('otp')
-        });
-    }
+//      transporter.sendMail(mailOptions, (error, info) => {
+//             if (error) {
+//                 return console.log(error)
+//             }
+//             res.send('otp')
+//         });
+//     }
 
 
-    const dispatch_emails = (email)=>{
-        const transporter = nodemailer.createTransport({
-            service:'gmail',
-            auth: {
-              user: 'sonam.brillianceit@gmail.com',
-              pass: 'vxerwpaiekxqrgvm'
-            }
-        });
+    // const dispatch_emails = (email)=>{
+    //     const transporter = nodemailer.createTransport({
+    //         service:'gmail',
+    //         auth: {
+    //           user: 'sonam.brillianceit@gmail.com',
+    //           pass: 'vxerwpaiekxqrgvm'
+    //         }
+    //     });
     
-        const mailOptions = {
-            from :'sonam.brillianceit@gmail.com',
-            to:email,
-            subject: 'Account Registration Successful!',
-            html : '<h3>Attention '+email+"!" + ' , </h3><p><h3>Your Account has been successfully registered.</h3>'
-        };
+    //     const mailOptions = {
+    //         from :'sonam.brillianceit@gmail.com',
+    //         to:email,
+    //         subject: 'Account Registration Successful!',
+    //         html : '<h3>Attention '+email+"!" + ' , </h3><p><h3>Your Account has been successfully registered.</h3>'
+    //     };
     
     
-        transporter.sendMail(mailOptions,function(error,info){
-            if(error)throw error;
-            return res.send({error:false, data: info, message: 'OK'});
-        })
-    }
+    //     transporter.sendMail(mailOptions,function(error,info){
+    //         if(error)throw error;
+    //         return res.send({error:false, data: info, message: 'OK'});
+    //     })
+    // }
     
 
    const checkVerified = (req,res)=>{
