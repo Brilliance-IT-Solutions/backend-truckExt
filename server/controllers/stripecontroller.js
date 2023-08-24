@@ -8,10 +8,8 @@ const TransactionHistory = require("../models/transactionHistory");
 
 const nodemailer = require('nodemailer')
 var cron = require('node-cron');
-const UserStatus = require("../models/status");
 
 const createPayment = async (req, res) => {
-    console.log("1111111")
     const { tokenId, email } = req.body.data
     try {
         let customer = await stripe.customers.list({ email: email })
@@ -93,7 +91,6 @@ const createPayment = async (req, res) => {
         })
         subscriptionDetail1.save();
 
-    console.log("22222222222")
         
         res.json({
             data: subscription,
@@ -137,20 +134,6 @@ const createPayment = async (req, res) => {
         subscriptionDetail1.save();
     }
 }
-
-// const checkSubscription = (req, res, next) => {
-//     let email = req.body.email
-//     Customer.findOne({ email: email })
-//         .then(response => {
-//             res.json({
-//                 response
-//             })
-//         }).catch(error => {
-//             res.json({
-//                 message: "An error Occured"
-//             })
-//         })
-// }
 
 const checkSubscription = (req, res, next) => {
     let customer = req.body.customer

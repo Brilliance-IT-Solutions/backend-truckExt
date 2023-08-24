@@ -1,7 +1,6 @@
 const User = require("../models/user")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const Subscription = require("../models/subscription")
 const Customer = require("../models/customer")
 const nodemailer = require('nodemailer')
 const otpGenerator = require('otp-generator')
@@ -124,7 +123,6 @@ const login = (req, res, next) => {
 }
 
 const sendotp = async(req,res)=>{
-    console.log("1")
     try{
     email=req.body.email;
      otp = otpGenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets: false });
@@ -141,34 +139,6 @@ catch{
 
    
 };
-
-// const resendotp = (req,res) =>{
-//      otp = otpGenerator.generate(4, { upperCaseAlphabets: false, specialChars: false ,digits :true,lowerCaseAlphabets :false});
-//     const transporter = nodemailer.createTransport({
-//         service:'gmail',
-//         auth: {
-//           user: 'sonam.brillianceit@gmail.com',
-//           pass: 'vxerwpaiekxqrgvm'
-//         }
-//     });
-
-//     var mailOptions={
-//         to: email,
-//        subject: "Otp for registration is: ",
-//        html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-//      };
-     
-//      transporter.sendMail(mailOptions, (error, info) => {
-//         if (error) {
-//             return console.log(error);
-//         }
-//         console.log('Message sent: %s', info.messageId);   
-//         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-//         res.send('otp',{msg:"otp has been sent"});
-//     });
-
-// };
-
 
 const verifyOtp = async (req,res)=>{
     let email = req.body.email

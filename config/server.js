@@ -8,17 +8,10 @@ require("./database.js");
 require("./cors.js")(app);
 const AuthRoute = require("../server/routes/user");
 const ConsumerRoute = require("../server/routes/consumer");
-const PaymentRoute = require("../server/routes/payment");
 const StripeRoute = require("../server/routes/stripe");
 
-const Subscription = require("../server/models/subscription");
-const Checkout = require("../server/models/checkout");
-const SubscriptionCreated = require("../server/models/subscriptionCreated");
 const TransactionHistory = require("../server/models/transactionHistory");
 const SubscriptionStatus = require("../server/models/subscriptionStatus");
-const Customer = require("../server/models/customer");
-const nodemailer = require("nodemailer");
-var cron = require("node-cron");
 
 const port = environmentVariables.PORT || 3000;
 console.log("sssssss", environmentVariables.NODE_ENV);
@@ -43,7 +36,6 @@ app.use(function (req, res, next) {
 app.get("/", authenticate, (req, res, next) => res.send("SERVER RUNNING"));
 app.use("/api", AuthRoute);
 app.use("/api/consumer", ConsumerRoute);
-app.use("/api", PaymentRoute);
 app.use("/api/stripe", StripeRoute);
 
 app.post("/webhook", async (req, res) => {
@@ -82,7 +74,6 @@ app.post("/webhook", async (req, res) => {
       subscriptionUpdated.save();
       break;
     default:
-    // console.log('Unhandled event type:', event.type);
     break;
   }
   return res.sendStatus(200); // Acknowledge receipt of the event
@@ -92,47 +83,6 @@ catch(error){
   return res.sendStatus(401); 
 }
 });
-
-// const task = cron.schedule(
-//   "25 18 * * *",
-//   async () => {
-//     console.log("running a task every minute on time 2 33");
-//     // SubscriptionStatus.updateOne(filter,update).then(()=>{
-//     //     res.json({
-//     //         success: "Your email is successfully verified"
-//     //     })
-//     // })
-
-//     try {
-//       // Fetch matching documents from the sourceCollection
-//       const sourceDocuments = await SubscriptionUpdated.find({
-//         customer: "cus_OQmBkuLXvCAQLa",
-//       });
-//       // Update documents in the targetCollection based on sourceDocuments
-//       for (const sourceDoc of sourceDocuments) {
-//         let data = {
-//           status: sourceDoc.status,
-//           created: sourceDoc.created,
-//           current_period_end: sourceDoc.current_period_end,
-//           current_period_start: sourceDoc.current_period_start,
-//         };
-//         await SubscriptionStatus.updateOne(
-//           { customer: "cus_OQmBkuLXvCAQLa" },
-//           { $set: data }
-//         );
-//         console.log("Documents updated successfully");
-//       }
-//     } catch (err) {
-//       console.error("Error updating documents:", err);
-//     }
-//   },
-//   {
-//     scheduled: true,
-//     timezone: "Asia/Kolkata",
-//   }
-// );
-
-// task.start();
 
 const server = app.listen(port, () =>
   console.log(`Express server listening on port ${port}`)

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
-//SubscriptionStatus  for subscription created
 const subscriptionStatus = new Schema({
     id: {
         type: String
