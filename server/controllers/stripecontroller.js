@@ -263,7 +263,7 @@ const dispatch_email = (email, message)=>{
     })
 }
 
-const task = cron.schedule('0 10 * * *', () => {
+const task = cron.schedule('15 16 * * *', () => {
     console.log('running a task every minute');
     checkReminder()
   },{
