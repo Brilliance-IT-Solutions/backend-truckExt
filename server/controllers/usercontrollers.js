@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 const Customer = require("../models/customer")
 const nodemailer = require('nodemailer')
 const otpGenerator = require('otp-generator')
-const email = require('./emailcontroller')
+const dispatch_email = require('./emailcontroller')
 
 let otp = ''
 const register = (req, res, next) => {
@@ -128,7 +128,7 @@ const sendotp = async(req,res)=>{
     email=req.body.email;
      otp = otpGenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets: false });
     //  dispatch_email_otp(email,otp)
-    await email.dispatch_email(email,"Otp for registration is: ","<h3>OTP for account verification is </h3>", otp)
+    await dispatch_email(email,"Otp for registration is: ","<h3>OTP for account verification is </h3>", otp)
      res.json({
            success : 'otp sent successfully on your email'
         })
