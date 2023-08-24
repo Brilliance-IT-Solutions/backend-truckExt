@@ -2,7 +2,6 @@ const User = require("../models/user")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const Customer = require("../models/customer")
-const nodemailer = require('nodemailer')
 const otpGenerator = require('otp-generator')
 const dispatch_email = require('./emailcontroller')
 
@@ -127,7 +126,6 @@ const sendotp = async(req,res)=>{
     try{
     email=req.body.email;
      otp = otpGenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets: false });
-    //  dispatch_email_otp(email,otp)
     await dispatch_email(email,"Otp for registration is: ","<h3>OTP for account verification is </h3>", otp)
      res.json({
            success : 'otp sent successfully on your email'
@@ -158,8 +156,7 @@ const verifyOtp = async (req,res)=>{
             res.json({
                 success: "Your email is successfully verified"
             })
-            // dispatch_emails(email)
-        await dispatch_email(email,'Account Registration Successful!','<h3>Attention"!"</h3><br><h3>Your Account has been successfully registered.</h3>', '')
+        await dispatch_email(email,'Account Registration Successful!','<h3>Attention!</h3><br><h3>Your Account has been successfully registered.</h3>', '')
 
         })
     }
@@ -169,57 +166,6 @@ const verifyOtp = async (req,res)=>{
         })
     }
 }; 
-
-
-
-// const dispatch_email_otp = (email,otp)=>{
-//     const transporter = nodemailer.createTransport({
-//         service:'gmail',
-//         auth: {
-//           user: 'sonam.brillianceit@gmail.com',
-//           pass: 'vxerwpaiekxqrgvm'
-//         }
-//     });
-    
-//      // send mail with defined transport object
-//     var mailOptions={
-//         to: email,
-//        subject: "Otp for registration is: ",
-//        html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-//      };
-     
-//      transporter.sendMail(mailOptions, (error, info) => {
-//             if (error) {
-//                 return console.log(error)
-//             }
-//             res.send('otp')
-//         });
-//     }
-
-
-    // const dispatch_emails = (email)=>{
-    //     const transporter = nodemailer.createTransport({
-    //         service:'gmail',
-    //         auth: {
-    //           user: 'sonam.brillianceit@gmail.com',
-    //           pass: 'vxerwpaiekxqrgvm'
-    //         }
-    //     });
-    
-    //     const mailOptions = {
-    //         from :'sonam.brillianceit@gmail.com',
-    //         to:email,
-    //         subject: 'Account Registration Successful!',
-    //         html : '<h3>Attention '+email+"!" + ' , </h3><p><h3>Your Account has been successfully registered.</h3>'
-    //     };
-    
-    
-    //     transporter.sendMail(mailOptions,function(error,info){
-    //         if(error)throw error;
-    //         return res.send({error:false, data: info, message: 'OK'});
-    //     })
-    // }
-    
 
    const checkVerified = (req,res)=>{
     let email = req.body.email
