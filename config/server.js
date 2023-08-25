@@ -97,5 +97,5 @@ catch(error){
 const server = app.listen(port, () =>
   console.log(`Express server listening on port ${port}`)
 );
-server.timeout = 50000;
+server.timeout = 60000;
 app.use(errorMiddleware);
