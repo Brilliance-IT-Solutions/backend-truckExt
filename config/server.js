@@ -38,15 +38,15 @@ app.use("/api", AuthRoute);
 app.use("/api/consumer", ConsumerRoute);
 app.use("/api/stripe", StripeRoute);
 
-app.post("/webhook", async (req, res) => {
+app.post("/webhook",{timeout:60000 } , async (req, res) => {
   const event = req.body;
   try {
   // Handle different event types
   switch (event.type) {
     case "customer.subscription.updated":
       // Handle subscription updates if needed
-      console.log("customer.subscription.updated", event.type);
-      console.log("customer.subscription.updated", event.data.object);
+      // console.log("customer.subscription.updated", event.type);
+      // console.log("customer.subscription.updated", event.data.object);
       let data = {
         status: event.data.object.status,
         created: event.data.object.created,
@@ -59,7 +59,7 @@ app.post("/webhook", async (req, res) => {
           $set: data
         }
       );
-      console.log("Documents updated successfully");
+      // console.log("Documents updated successfully");
       let subscriptionUpdated = new TransactionHistory({
         id: event.data.object.id,
         created: event.data.object.created,
@@ -73,6 +73,16 @@ app.post("/webhook", async (req, res) => {
       });
       subscriptionUpdated.save();
       break;
+      // case "invoice.payment_succeeded":
+      //   // Handle subscription updates if needed
+      //   console.log("invoice.payment_succeeded", event.type);
+      //   console.log("invoice.payment_succeeded", event.data.object);
+      //   break;
+      // case "invoice.payment_failed":
+      //   // Handle subscription updates if needed
+      //   console.log("invoice.payment_failed", event.type);
+      //   console.log("invoice.payment_failed", event.data.object);
+      //   break;
     default:
     break;
   }
