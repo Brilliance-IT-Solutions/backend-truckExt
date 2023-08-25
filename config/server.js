@@ -38,7 +38,7 @@ app.use("/api", AuthRoute);
 app.use("/api/consumer", ConsumerRoute);
 app.use("/api/stripe", StripeRoute);
 
-app.post("/webhook",{timeout:60000 } , async (req, res) => {
+app.post("/webhook" , async (req, res,) => {
   const event = req.body;
   try {
   // Handle different event types
