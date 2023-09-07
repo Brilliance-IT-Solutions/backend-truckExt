@@ -7,7 +7,7 @@ async function dispatch_email(email,subject,text,data){
         service:'gmail',
         auth: {
           user: 'sonam.brillianceit@gmail.com',
-          pass: 'vxerwpaiekxqrgvm'
+          pass: 'nlrwwcgodnfcxnss' //vxerwpaiekxqrgvm
         }
     });
     
