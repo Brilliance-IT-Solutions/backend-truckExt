@@ -74,7 +74,8 @@ const createPayment = async (req, res) => {
             current_period_end: subscription.current_period_end,
             current_period_start: subscription.current_period_start,
             customer: subscription.customer,
-            status: subscription.status
+            status: subscription.status,
+            email : customer.email
         })
         subscriptionDetail.save()
         let subscriptionDetail1 = new TransactionHistory({

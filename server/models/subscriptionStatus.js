@@ -22,6 +22,9 @@ const subscriptionStatus = new Schema({
     status: {
         type: String
     },
+    email: {
+        type: String
+    },
 }, { timestamps: true })
 const SubscriptionStatus = mongoose.model("subscriptionStatus", subscriptionStatus)
 module.exports = SubscriptionStatus
