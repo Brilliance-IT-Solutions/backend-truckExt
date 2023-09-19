@@ -186,10 +186,8 @@ const  checkReminder =  () =>{
             else{
                 Customer.find({id:ele.customer}).then((res)=>{
                     res.forEach((ele)=>{
-                 dispatch_email(email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email +  '</h3><h3><p>Your subscription is expiring on </p></h3>', formattedDate)
-
+                 dispatch_email(ele.email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email +  '</h3><h3><p>Your subscription is expiring on </p></h3>', formattedDate)
                     })
-
                 })
             }
         })
