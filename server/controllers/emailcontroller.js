@@ -5,7 +5,7 @@ const otpGenerator = require('otp-generator')
 async function dispatch_email(email,subject,text,data){
     const transporter = nodemailer.createTransport({
         service:'gmail',
-        port: 465,
+        port: 587,
         auth: {
           user: 'sonam.brillianceit@gmail.com',
           pass: 'nlrwwcgodnfcxnss' //vxerwpaiekxqrgvm
