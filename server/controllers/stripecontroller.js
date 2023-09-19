@@ -186,7 +186,7 @@ const  checkReminder =  () =>{
             else{
                 Customer.find({id:ele.customer}).then((res)=>{
                     res.forEach((ele)=>{
-                 dispatch_email(ele.email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email +  '</h3><h3><p>Your subscription is expiring on </p></h3>', formattedDate)
+                 dispatch_email(ele.email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email +  '</h3><h3><p>Counter Extension Subscription is going to expire on </p></h3>', formattedDate)
                     })
                 })
             }
@@ -194,7 +194,7 @@ const  checkReminder =  () =>{
     })
 }
 
-const task = cron.schedule('15 18 * * *', () => {
+const task = cron.schedule('0 10 * * *', () => {
     console.log('running a task every minute');
     checkReminder()
   },{
