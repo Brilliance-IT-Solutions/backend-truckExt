@@ -179,14 +179,16 @@ const  checkReminder =  () =>{
             const formattedDate = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
             const formatCurrentDate1 = currentDate1.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
             const formatCurrentDate2 = currentDate2.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
-
+      
             if(formattedDate > formatCurrentDate2){
                 // return
             }
             else{
-                Customer.find({id:ele.customer}).then((res)=>{
-                    res.forEach((ele)=>{
-                 dispatch_email(ele.email,  'Reminder Email!',  '<h3>Reminder Email!' + ele.email +  '</h3><h3><p>Counter Extension Subscription is going to expire on </p></h3>', formattedDate)
+                Customer.find({id:ele.customer}).then((customer)=>{
+                    customer.forEach((customers)=>{
+                        let subId= encodeURIComponent(ele.id)
+                        // <a href=" https://f054-122-179-201-140.ngrok-free.app/api/stripe/perform-action?subId=${subId}">
+                 dispatch_email(customers.email,  'Reminder Email!',  `<h3>Reminder Email!  ${customers.email}   </h3><h3><p>Counter Extension Subscription is going to expire on </p></h3> <p>Please Click on the button to re-subscribe and continue using Counter Extension<p><br><input type="button" value="Subscribe" style="color:#ffffff;background-color: #21AD22;border-color:#21AD22;padding: 15px;font-weight:700;border-radius: 10px;border:1px solid">`, formattedDate)
                     })
                 })
             }
@@ -194,8 +196,8 @@ const  checkReminder =  () =>{
     })
 }
 
-const task = cron.schedule('0 10 * * *', () => {
-    console.log('running a task every minute');
+const task = cron.schedule('0 11 * * *', () => {
+    console.log('running a task every day');
     checkReminder()
   },{
     scheduled: true,
@@ -204,6 +206,13 @@ const task = cron.schedule('0 10 * * *', () => {
 
   task.start();
 
+  const updateSubscription =  async (req, res, next) =>{
+          res.json({
+            message: "subscription updated successfully",
+        })
+  }
+
+
 module.exports = {
-    createPayment, checkSubscription, checkAfterFirstSubscription
+    createPayment, checkSubscription, checkAfterFirstSubscription,updateSubscription
 }
