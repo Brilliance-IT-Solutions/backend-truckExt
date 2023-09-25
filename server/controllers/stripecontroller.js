@@ -23,6 +23,7 @@ const createPayment = async (req, res) => {
             name: 'tes26',
             shipping: {
             address: {
+             name: 'tes26',
               line1: 'gill chowk',
               postal_code: '141003',
               city: 'Ludhiana',
