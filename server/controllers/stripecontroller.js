@@ -20,6 +20,7 @@ const createPayment = async (req, res) => {
          customer = await stripe.customers.create({
             source: tokenId,//created by the front end createToken()
             email: email,
+            shipping: {
             name: 'tes26',
             address: {
               line1: 'gill chowk',
@@ -28,6 +29,7 @@ const createPayment = async (req, res) => {
               state: 'Punjab',
               country: 'India',
             },
+        }
         });
     
         let customerDetail = new Customer({
@@ -107,7 +109,9 @@ const createPayment = async (req, res) => {
             data: subscription,
             message: "subscription created successfully",
         })
-        dispatch_email(email, 'Payment Succeed!', '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>', '')
+        if(subscription.status === 'active'){
+            dispatch_email(email, 'Payment Succeed!', '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>', '')
+        }
 
     }
     catch(error) {
