@@ -27,7 +27,7 @@ const createPayment = async (req, res) => {
               postal_code: '141003',
               city: 'Ludhiana',
               state: 'Punjab',
-              country: 'India',
+              country: 'IN',
             },
         }
         });
