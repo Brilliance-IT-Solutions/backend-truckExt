@@ -20,6 +20,14 @@ const createPayment = async (req, res) => {
          customer = await stripe.customers.create({
             source: tokenId,//created by the front end createToken()
             email: email,
+            name: 'tes26',
+            address: {
+              line1: '',
+              postal_code: '',
+              city: 'Ludhiana',
+              state: 'Punjab',
+              country: 'India',
+            },
         });
     
         let customerDetail = new Customer({
