@@ -109,9 +109,7 @@ const createPayment = async (req, res) => {
             data: subscription,
             message: "subscription created successfully",
         })
-        if(subscription.status === 'active'){
             dispatch_email(email, 'Payment Succeed!', '<h3>Congratulations! '+email +  "!" + ' , </h3><p><h3>You can now now use truck extension </h3></p>', '')
-        }
 
     }
     catch(error) {
