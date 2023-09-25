@@ -73,7 +73,7 @@ const CustomerSchema = new Schema({
         type: Array
     },
     shipping: {
-        type: String
+        type: Object
     },
     tax_exempt: {
         type: String
