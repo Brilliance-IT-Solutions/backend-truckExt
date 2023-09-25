@@ -20,7 +20,6 @@ const createPayment = async (req, res) => {
          customer = await stripe.customers.create({
             source: tokenId,//created by the front end createToken()
             email: email,
-            name: 'tes26',
             shipping: {
             name: 'tes26',
             address: {
@@ -72,7 +71,6 @@ const createPayment = async (req, res) => {
     }
        const subscription = await stripe.subscriptions.create({
             customer: customer.id,
-            off_session: true,
             items: [
                 {
                     price: process.env.PRICE_ID
