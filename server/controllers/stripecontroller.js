@@ -20,8 +20,8 @@ const createPayment = async (req, res) => {
          customer = await stripe.customers.create({
             source: tokenId,//created by the front end createToken()
             email: email,
-            shipping: {
             name: 'tes26',
+            shipping: {
             address: {
               line1: 'gill chowk',
               postal_code: '141003',
