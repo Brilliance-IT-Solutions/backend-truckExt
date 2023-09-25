@@ -7,5 +7,6 @@ router.post('/payment', StripeController.createPayment)
 router.post('/checkSubscription', StripeController.checkSubscription)
 router.post('/checkAfterFirstSubscription', StripeController.checkAfterFirstSubscription)
 router.get('/perform-action', StripeController.updateSubscription)
+router.get('/retrievedPrice', StripeController.retrievedPrice)
 
 module.exports = router

@@ -6,8 +6,8 @@ const store = (req, res, next) => {
         timer: req.body.timer,
         id: req.body.id,
         units: req.body.units,
-        customer : req.body.customer
-
+        customer : req.body.customer,
+        xpath : req.body.xpath
     })
     consumer.save()
         .then(response => {
@@ -60,7 +60,8 @@ const update = (req, res, next) => {
         timer: req.body.timer,
         id: req.body.id,
         units: req.body.units,
-        customer:req.body.customer
+        customer:req.body.customer,
+        xpath : req.body.xpath
     }
 
     Consumer.updateOne(filter, { $set: updateData })

@@ -2,11 +2,13 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: `.env.development` });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+
 const Customer = require("../models/customer");
 const SubscriptionStatus = require("../models/subscriptionStatus");
 const TransactionHistory = require("../models/transactionHistory");
 var cron = require('node-cron');
-const dispatch_email = require('./emailcontroller')
+const dispatch_email = require('./emailcontroller');
+const RetrievePrice = require("../models/price");
 
 
 const createPayment = async (req, res) => {
@@ -213,6 +215,25 @@ const task = cron.schedule('0 11 * * *', () => {
   }
 
 
+  const retrievedPrice = async (req,res)=>{
+    try{
+        RetrievePrice.find()
+        .then(response => {
+            res.json({
+                data : response
+            })
+        }).catch(error => {
+            res.json({
+                message: "An error Occured"
+            })
+        })
+      
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {
-    createPayment, checkSubscription, checkAfterFirstSubscription,updateSubscription
+    createPayment, checkSubscription, checkAfterFirstSubscription,updateSubscription,retrievedPrice
 }

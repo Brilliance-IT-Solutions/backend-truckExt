@@ -13,6 +13,9 @@ const consumerSchema = new Schema({
     },
     customer:{
         type:String
+    },
+    xpath:{
+        type:String
     }
    
 
