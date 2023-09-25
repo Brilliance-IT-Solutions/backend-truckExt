@@ -22,8 +22,8 @@ const createPayment = async (req, res) => {
             email: email,
             name: 'tes26',
             address: {
-              line1: '',
-              postal_code: '',
+              line1: 'gill chowk',
+              postal_code: '141003',
               city: 'Ludhiana',
               state: 'Punjab',
               country: 'India',
