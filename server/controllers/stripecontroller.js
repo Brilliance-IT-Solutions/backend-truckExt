@@ -71,6 +71,7 @@ const createPayment = async (req, res) => {
     }
        const subscription = await stripe.subscriptions.create({
             customer: customer.id,
+            off_session: true,
             items: [
                 {
                     price: process.env.PRICE_ID
