@@ -19,28 +19,7 @@ const createPayment = async (req, res) => {
         if (customer.data.length === 0) {
          customer = await stripe.customers.create({
             source: tokenId,//created by the front end createToken()
-            email: email,
-            name: 'tes26',
-            shipping: {
-            name: 'tes26',
-            address: {
-              line1: 'gill chowk',
-              postal_code: '141003',
-              city: 'Ludhiana',
-              state: 'Punjab',
-              country: 'IN',
-            },
-        }, 
-        invoice_settings:{
-        default_payment_method:['card'],
-        billing_address: {
-        line1: 'gill chowk',
-            postal_code: '141003',
-            city:'Ludhiana',
-            state:  'Punjab',
-            country: 'IN',
-        },
-    },
+            email: email
         });
 
     
