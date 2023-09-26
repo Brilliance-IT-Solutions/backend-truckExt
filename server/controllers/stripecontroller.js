@@ -192,7 +192,7 @@ const checkReminder = () => {
     res.forEach((ele) => {
       let currentDate = new Date(ele.current_period_start * 1000);
       let currentDate1 = new Date(ele.current_period_start * 1000);
-      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setDate(currentDate.getDate() + 30);
       const formattedDate = currentDate.toLocaleDateString("en-US", {
         year: "numeric",
         month: "numeric",
