@@ -30,7 +30,17 @@ const createPayment = async (req, res) => {
               state: 'Punjab',
               country: 'IN',
             },
-        }
+        }, 
+        invoice_settings:{
+        default_payment_method:['card'],
+        billing_address: {
+        line1: 'gill chowk',
+            postal_code: '141003',
+            city:'Ludhiana',
+            state:  'Punjab',
+            country: 'IN',
+        },
+    },
         });
 
     
@@ -78,12 +88,7 @@ const createPayment = async (req, res) => {
                 {
                     price: process.env.PRICE_ID
                 },
-            ],
-             billing_address_collection:'auto',
-       shipping_address_collection:{
-        allowed_countries: ['IN']
-    }
-
+            ]
         });
         let subscriptionDetail = new SubscriptionStatus({
             id: subscription.id,
