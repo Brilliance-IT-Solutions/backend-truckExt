@@ -33,7 +33,6 @@ const createPayment = async (req, res) => {
         }
         });
 
-        console.log(customer)
     
         let customerDetail = new Customer({
             id: customer.id,
@@ -79,7 +78,11 @@ const createPayment = async (req, res) => {
                 {
                     price: process.env.PRICE_ID
                 },
-            ]
+            ],
+             billing_address_collection:'auto',
+       shipping_address_collection:{
+        allowed_countries: ['IN']
+    }
 
         });
         let subscriptionDetail = new SubscriptionStatus({
