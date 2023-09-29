@@ -43,7 +43,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Clone the repo
 ```bash
- https://github.com/Brilliance-IT-Solutions/Truck-Extension-Backend.git
+ https://github.com/Brilliance-IT-Solutions/backend-truckExt.git
 ```
 2. Install NPM packages
 ```bash
