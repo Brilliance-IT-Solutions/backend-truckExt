@@ -50,7 +50,18 @@ _Below is an example of how you can instruct your audience on installing and set
   npm install 
 ```
 3. Create/Update .env file as per requirement.
-4. Run the server
+- Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`NODE`
+`PORT`
+`MONGODB_CONNECTION`
+`JWT_SECRET_KEY`
+`STRIPE_SECRET_TEST`
+`PRICE_ID`
+
+5. Run the server
  ```bash
   npm start 
 ```
